@@ -9,3 +9,4 @@ urlpatterns = [
     
     path('entrenadores/', views.lista_entrenadores, name='lista_entrenadores'),
 ]
+

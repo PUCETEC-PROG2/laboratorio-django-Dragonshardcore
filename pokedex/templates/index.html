@@ -1,29 +1,42 @@
-<html>
-    <head>
-        <title>Pokedex</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <div class="container">
-            <div class="bg-primary text-white p-4 text-center">
-                <h1>Mi Pokedex</h1>
-            </div>
-            
-            <div class="p-2">
-                <a href="{% url 'lista_entrenadores' %}" class="btn btn-warning">Ver Lista de Entrenadores</a>
-            </div>
-            
-            <p class="p-2">Hola, esta es mi Pokedex</p>
-            
-            <ul class="list-group">
-                {% for pokemon in pokemons %}
-                <li class="list-group-item">
-                    <a href="pokemon/{{pokemon.id}}/">{{ pokemon | capfirst }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </body>
-</html>
+{% extends 'base.html' %}
 
+{% block content %} 
+    <p class="p-2">Hola, esta es mi Pokedex</p>
+    
+    <div class="mb-4">
+        <a href="{% url 'lista_entrenadores' %}" class="btn btn-info">
+            Ver Entrenadores
+        </a>
+    </div>
+
+   <div class="row">
+    {% for pokemon in pokemons %}
+    
+    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+        <div class="card text-center" style="height: 100%;">
+            
+            <img src="{{ pokemon.imagen }}" class="card-img-top mx-auto mt-2" alt="{{ pokemon.nombre }}" style="width: 80%; height: auto;">
+            
+            <div class="card-body">
+                <a href="{% url 'pokemon' pokemon.id %}" class="text-decoration-none">
+                    <h5 class="card-title text-dark">
+                        {{ pokemon.nombre | capfirst }}
+                    </h5>
+                </a>
+                
+                <p class="card-text">
+                    <small class="text-muted">Entrenador: {{ pokemon.entrenador.nombre }}</small><br>
+                    <small class="text-muted">Peso: {{ pokemon.peso }}</small>
+                </p>
+                
+                <div>
+                    <a href="{% url 'pokemon' pokemon.id %}" class="btn btn-info mt-2 w-100">
+                        Información
+                    </a>
+                </div>
+                </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

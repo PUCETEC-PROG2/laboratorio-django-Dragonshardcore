@@ -19,3 +19,5 @@ def pokemon(request, id:int):
 def lista_entrenadores(request):
     entrenadores = Entrenador.objects.all()  
     return render(request, 'entrenadores.html', {'entrenadores': entrenadores})
+
+
