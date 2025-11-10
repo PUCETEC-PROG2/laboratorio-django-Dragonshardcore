@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+    <p class="p-2">Hola, esta es mi Pokedex</p>
+    
+    <div class="mb-4">
+        <a href="{% url 'lista_entrenadores' %}" class="btn btn-info">
+            Ver Entrenadores
+        </a>
+    </div>
+    
+    <div class="mb-4">
+        <a href="{% url 'añadir_pokemon' %}" class="btn btn-success mb-4">
+            <i class="fa-solid fa-plus"></i> Agregar Nuevo Pokémon
+        </a>    
+    </div>
+   <div class="row">
+    {% for pokemon in pokemons %}
+    
+    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+        <div class="card text-center" style="height: 100%;">
+            
+            <img src="{{ pokemon.imagen }}" class="card-img-top mx-auto mt-2" alt="{{ pokemon.nombre }}" style="width: 80%; height: auto;">
+            
+            <div class="card-body">
+                <a href="{% url 'pokemon' pokemon.id %}" class="text-decoration-none">
+                    <h5 class="card-title text-dark">
+                        {{ pokemon.nombre | capfirst }}
+                    </h5>
+                </a>
+                
+                <p class="card-text">
+                    <small class="text-muted">Entrenador: {{ pokemon.entrenador.nombre }}</small><br>
+                    <small class="text-muted">Peso: {{ pokemon.peso }}</small>
+                </p>
+                
+                <div>
+                    <a href="{% url 'pokemon' pokemon.id %}" class="btn btn-info mt-2 w-100">
+                        <i class="fa-solid fa-eye"></i> Ver Detalles
+                    </a>
+                    <a href="{% url 'editar_pokemon' pokemon.id %}" class="btn btn-info mt-2 w-100">
+                        <i class="fa-solid fa-pencil"></i> Editar
+                    </a>
+
+                    <a href="{% url 'eliminar_pokemon' pokemon.id %}" class="btn btn-danger mt-2 w-100">
+                        <i class="fa-solid fa-trash"></i> Eliminar
+                    </a>
+                </div>
+                </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
